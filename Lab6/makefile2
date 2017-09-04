@@ -1,0 +1,31 @@
+fileName = task2
+utilName =
+asmName =
+ExecCFile = gcc -m32 -g -Wall -o
+CFile = gcc -m32 -g -ansi -Wall -c -o
+SFile = nasm -g -f elf -w+all -o
+ExecSFile = ld -m elf_i386
+execName = mypipeline
+
+all: $(fileName)
+
+#create execution file
+$(fileName): $(fileName).o #$(utilName).o $(utilName).h
+	$(ExecCFile) $(execName) $(fileName).o #$(utilName).o
+
+#compile main file
+$(fileName).o: $(fileName).c
+	$(CFile) $(fileName).o $(fileName).c
+
+#compile utility file
+#$(utilName).o: $(utilName).c
+#	$(CFile)  $(utilName).o $(utilName).c
+
+# compile assembly file
+#$(asmName).o: $(asmName).s
+#	$(SFile) $(asmName).s $(asmName).o
+
+.PHONY: clean
+
+clean:
+	rm -f *.o $(execName)
